@@ -1,0 +1,23 @@
+spring:
+  datasource:
+     driver-class-name: org.postgresql.Driver
+     url: jdbc:postgresql://localhost:5432/RestProject_LMS
+     username: postgres
+     password: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 7474
+  error:
+    include-message: always
+
+
+app:
+  jwt:
+    secret: java10
+
+
