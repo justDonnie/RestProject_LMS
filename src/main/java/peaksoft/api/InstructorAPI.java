@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.dto.InstructorResponse;
+import peaksoft.dto.InstructorsFullInfo;
 import peaksoft.dto.SimpleResponse;
 import peaksoft.dto.UniRegistrRequest;
 import peaksoft.services.InstructorService;
@@ -56,6 +57,12 @@ public class InstructorAPI {
                                                    @PathVariable Long courseId){
         return instructorService.assignInstToCourse(instId,courseId);
     }
+    @PreAuthorize("hasAuthority('ADMIN')")
+    @GetMapping("/full/{instId}")
+    public InstructorsFullInfo instructorsFullInfo(@PathVariable Long instId){
+        return instructorService.getInstructorInfo(instId);
+    }
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/{instId}")
     public SimpleResponse deleteInstructorById(@PathVariable Long instId){

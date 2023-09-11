@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import peaksoft.dto.CourseRequest;
 import peaksoft.dto.CourseResponse;
 import peaksoft.dto.SimpleResponse;
+import peaksoft.exceptions.BadCredentialException;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Company;
 import peaksoft.models.Course;
@@ -73,6 +74,20 @@ public class CourseServiceImpl implements CourseService {
                 HttpStatus.OK,
                 String.format("Course with ID " + course.getId() + " is successfully updated!!!")
         );
+    }
+
+    @Override
+    public List<CourseResponse> sortByDate(String word, Long compId) {
+        List<CourseResponse> courses = courseRepository.getAllCourses(compId);
+        if ("asc".equalsIgnoreCase(word)){
+            courses=courseRepository.sortCourseByDateAsc();
+        } else if ("desc".equalsIgnoreCase(word)) {
+            courses=courseRepository.sortCourseByDateDesc();
+        }
+        else {
+            throw new BadCredentialException("Input the correct command !!!");
+        }
+        return courses;
     }
 
     @Override

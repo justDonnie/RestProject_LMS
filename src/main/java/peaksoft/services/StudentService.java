@@ -19,5 +19,7 @@ public interface StudentService {
 
     SimpleResponse blockStudent(boolean word, Long stdId);
 
+    List<StudentResponse> sortStudyFormat(String studyFormat);
+
 
 }

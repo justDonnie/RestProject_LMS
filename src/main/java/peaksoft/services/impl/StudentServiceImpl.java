@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import peaksoft.dto.SimpleResponse;
 import peaksoft.dto.StudentResponse;
 import peaksoft.dto.UniRegistrRequest;
+import peaksoft.exceptions.BadCredentialException;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Group;
 import peaksoft.models.Student;
@@ -102,6 +103,19 @@ public class StudentServiceImpl implements StudentService {
                 HttpStatus.OK,
                 String.format("Student with id:%s successfully blocked",stdId)
         );
+    }
+
+    @Override
+    public List<StudentResponse> sortStudyFormat(String studyFormat) {
+        if (studyFormat.equalsIgnoreCase("online")){
+            return studentRepository.getOnlineFormat();
+        }
+        else if (studyFormat.equalsIgnoreCase("offline")){
+            return studentRepository.getOfflineFormat();
+        }
+        else {
+            throw new BadCredentialException("Input correct request !!!");
+        }
     }
 
     @Override

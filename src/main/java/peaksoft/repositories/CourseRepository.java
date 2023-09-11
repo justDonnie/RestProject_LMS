@@ -25,6 +25,9 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     @Query("select c from Company p join Course c on p.id=c.company.id where c.id=:courseId")
     Optional<Course>findCourseById(Long courseId);
 
+    @Query("select new peaksoft.dto.CourseResponse(c.id,c.courseName,c.dateOfStart,c.description,c.createdAt,c.updatedAt) from Course c order by c.createdAt asc")
+    List<CourseResponse> sortCourseByDateAsc();
 
-
+    @Query("select new peaksoft.dto.CourseResponse(c.id,c.courseName,c.dateOfStart,c.description,c.createdAt,c.updatedAt) from Course c order by c.createdAt desc")
+    List<CourseResponse> sortCourseByDateDesc();
 }

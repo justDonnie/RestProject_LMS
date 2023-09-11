@@ -1,6 +1,7 @@
 package peaksoft.dto;
 
 import jakarta.validation.constraints.Email;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import peaksoft.validation.PhoneNumberValidation;
@@ -9,7 +10,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @Setter
-
+@Builder
 public class StudentResponse {
     private Long id;
     private String firstName;

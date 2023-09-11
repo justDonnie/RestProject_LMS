@@ -53,6 +53,14 @@ public class CourseAPI {
         return courseService.updateCourse(courseId,courseRequest);
     }
 
+    @PreAuthorize("hasAnyAuthority('ADMIN','INSTRUCTOR')")
+    @GetMapping("/sortByDate/{word}")
+    public List<CourseResponse>sortByDate(@PathVariable String word,
+                                          @PathVariable Long compId){
+        return courseService.sortByDate(word,compId);
+    }
+
+
     @PreAuthorize("hasAuthority('ADMIN')")
     @DeleteMapping("/delete/{courseId}")
     public SimpleResponse deleteCourseById(@PathVariable Long courseId,

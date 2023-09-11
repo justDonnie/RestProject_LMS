@@ -1,6 +1,7 @@
 package peaksoft.services;
 
 import peaksoft.dto.InstructorResponse;
+import peaksoft.dto.InstructorsFullInfo;
 import peaksoft.dto.SimpleResponse;
 import peaksoft.dto.UniRegistrRequest;
 
@@ -22,4 +23,5 @@ public interface InstructorService {
 
     SimpleResponse assignInstToCourse(Long instId,Long courseId);
 
+    InstructorsFullInfo getInstructorInfo(Long instId);
 }

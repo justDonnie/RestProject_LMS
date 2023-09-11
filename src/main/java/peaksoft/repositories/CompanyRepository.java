@@ -16,9 +16,6 @@ public interface CompanyRepository extends JpaRepository<Company, Long> {
 
     Optional<CompanyResponse> getCompanyById(Long id);
 
-//    @Query("select new peaksoft.dto.CompanyResponse(c.id,c.name,c.country,c.address,c.phoneNumber,c.createdAt,c.updatedAt)from Company c join Course cs on ")
-//    Optional<CompanyResponse> infoCompany(Long compId);
-
 
 }
 

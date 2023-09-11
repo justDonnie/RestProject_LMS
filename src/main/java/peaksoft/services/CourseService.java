@@ -17,4 +17,6 @@ public interface CourseService {
     SimpleResponse updateCourse(Long courseId, CourseRequest newCourseRequest);
 
     SimpleResponse deleteCourse(Long courseId);
+
+    List<CourseResponse>sortByDate(String word, Long compId);
 }

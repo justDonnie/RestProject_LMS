@@ -18,5 +18,4 @@ public interface CompanyService {
 
     SimpleResponse deleteCompany(Long compId);
 
-
 }

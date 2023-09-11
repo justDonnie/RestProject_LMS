@@ -6,14 +6,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import peaksoft.dto.InstructorResponse;
+import peaksoft.dto.InstructorsFullInfo;
 import peaksoft.dto.SimpleResponse;
 import peaksoft.dto.UniRegistrRequest;
 import peaksoft.exceptions.NotFoundException;
 import peaksoft.models.Company;
 import peaksoft.models.Course;
+import peaksoft.models.Group;
 import peaksoft.models.Instructor;
 import peaksoft.repositories.CompanyRepository;
 import peaksoft.repositories.CourseRepository;
+import peaksoft.repositories.GroupRepository;
 import peaksoft.repositories.InstructorRepository;
 import peaksoft.services.InstructorService;
 
@@ -30,6 +33,7 @@ public class InstructorServiceImpl implements InstructorService{
     private final InstructorRepository instructorRepository;
     private final CourseRepository courseRepository;
     private final PasswordEncoder passwordEncoder;
+    private final GroupRepository groupRepository;
 
 
     @Override
@@ -121,6 +125,20 @@ public class InstructorServiceImpl implements InstructorService{
         return new SimpleResponse(
                 HttpStatus.OK,
                 String.format("Instructor with ID %s is successfully assigned !!!",instructor.getId())
+        );
+    }
+
+    @Override
+    public InstructorsFullInfo getInstructorInfo(Long instId) {
+        Instructor instructor = instructorRepository.findById(instId).orElseThrow(() -> new NotFoundException("Instructor with ID" + instId + " is not found!!!"));
+        Group group = groupRepository.findById(instructor.getId()).orElseThrow(() -> new NotFoundException("Group is not found!!!"));
+        int numberOfStudents = group.getStudents().size();
+        return new InstructorsFullInfo(
+                instructor.getId(),
+                instructor.getFirstName(),
+                instructor.getLastName(),
+                group.getGroupName(),
+                numberOfStudents
         );
     }
 

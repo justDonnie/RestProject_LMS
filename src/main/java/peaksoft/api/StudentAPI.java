@@ -56,8 +56,11 @@ public class StudentAPI {
                                        @PathVariable Long stdId){
         return studentService.blockStudent(word,stdId);
     }
-
-
+    @PreAuthorize("hasAnyAuthority('ADMIN','INSTRUCTOR')")
+    @GetMapping("/sortStudyFormat/{word}")
+    public List<StudentResponse> sortStudyFormat(@PathVariable String word){
+        return studentService.sortStudyFormat(word);
+    }
     @PreAuthorize("hasAnyAuthority('ADMIN','INSTRUCTOR')")
     @DeleteMapping("/delete/{stdId}/{grpId}")
     public SimpleResponse deleteStudentFromGroup(@PathVariable Long stdId,
